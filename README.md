@@ -23,6 +23,7 @@ LIMIT 10
 | fey kloss|52|married|fkloss9@godaddy.com|808-177-0318|8976 Jackson Park,Honolulu,Hawaii|Chemical Engineer|11/5/2014|
 
 ### Copy the table
+#### Create new table for cleaning
 ```sql
 -- club_member_info definition
 
@@ -37,8 +38,19 @@ CREATE TABLE club_member_info (
 	membership_date VARCHAR(50)
 );
 ```
-### Copy all values from original table
+#### Copy all values from original table
 ```sql
 INSERT INTO club_member_info_cleaned 
 SELECT * FROM club_member_info 
 ```
+
+####Trim any space in the column
+```sql
+UPDATE club_member_info_cleaned
+SET full_name       = TRIM(full_name),
+    martial_status  = TRIM(martial_status),
+    email           = TRIM(email),
+    phone           = TRIM(phone),
+    full_address    = TRIM(full_address),
+    job_title       = TRIM(job_title),
+    membership_date = TRIM(membership_date);
