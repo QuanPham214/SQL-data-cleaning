@@ -44,7 +44,7 @@ INSERT INTO club_member_info_cleaned
 SELECT * FROM club_member_info 
 ```
 
-####Trim any space in the column
+#### Trim any space in the column
 ```sql
 UPDATE club_member_info_cleaned
 SET full_name       = TRIM(full_name),
@@ -54,3 +54,10 @@ SET full_name       = TRIM(full_name),
     full_address    = TRIM(full_address),
     job_title       = TRIM(job_title),
     membership_date = TRIM(membership_date);
+```
+#### Standardise the full name by Capitalising the first letter of the full name
+```sql
+UPDATE club_member_info_cleaned
+SET full_name = UPPER(SUBSTR(full_name,1,1)) || LOWER(SUBSTR(full_name,2))
+WHERE full_name IS NOT NULL;
+```
