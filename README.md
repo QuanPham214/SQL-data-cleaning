@@ -69,3 +69,18 @@ UPDATE club_member_info_cleaned
 SET age = NULL
 WHERE age NOT BETWEEN 0 AND 120;
 ```
+#### Correct the spell of column 'martial_status' into 'marital_status'
+```sql
+ALTER TABLE club_member_info_cleaned
+	RENAME COLUMN martial_status TO marital_status;
+```
+#### Standardise the values in the column 'marital_status' by uppercasing the first letter and setting NULL for missing data;
+```sql
+UPDATE club_member_info_cleaned
+SET marital_status = CASE LOWER(marital_status)
+                       WHEN 'married'   THEN 'Married'
+                       WHEN 'single'    THEN 'Single'
+                       WHEN 'divorced'  THEN 'Divorced'
+                       WHEN 'widowed'   THEN 'Widowed'
+                       ELSE NULL      
+                     END;
