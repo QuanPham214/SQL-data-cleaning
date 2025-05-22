@@ -61,3 +61,11 @@ UPDATE club_member_info_cleaned
 SET full_name = UPPER(SUBSTR(full_name,1,1)) || LOWER(SUBSTR(full_name,2))
 WHERE full_name IS NOT NULL;
 ```
+
+#### Replace unsuitable age by NULL:
+
+```sql
+UPDATE club_member_info_cleaned
+SET age = NULL
+WHERE age NOT BETWEEN 0 AND 120;
+```
