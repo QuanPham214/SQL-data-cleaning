@@ -85,6 +85,26 @@ SET marital_status = CASE LOWER(marital_status)
                        ELSE NULL      
                      END;
  ```
+
+#### Remove duplicates email
+##### Regconise the duplicate: 
+```sql
+SELECT email,
+       COUNT(*)
+FROM   club_member_info_cleaned
+GROUP  BY email
+HAVING COUNT(*) > 1
+ORDER  BY occurrences DESC;
+```
+##### Remove duplicate:
+```sql
+DELETE FROM club_member_info_cleaned
+WHERE rowid NOT IN (
+      SELECT MIN(rowid)
+      FROM   club_member_info_cleaned
+      GROUP  BY email
+);
+```
 ### The final result of data cleaning - Get the first 10 rows after cleaning data
 |full_name|age|marital_status|email|phone|full_address|job_title|membership_date|
 |---------|---|--------------|-----|-----|------------|---------|---------------|
